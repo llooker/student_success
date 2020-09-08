@@ -1,7 +1,7 @@
 view: coursework_submissions {
   sql_table_name: `looker-private-demo.classroom_staging.coursework_submissions`;;
 
-  drill_fields: [id]
+  drill_fields: [id,creation_time,student_profiles.name,average_days_to_submit, average_grade_percent]
 
   dimension: id {
     label: "Coursework Submission ID"
@@ -171,6 +171,7 @@ view: coursework_submissions {
     type: average
     sql:  ${normalized_grade};;
     value_format_name: percent_2
+    drill_fields: [courses.subject,average_grade_percent]
   }
 
   measure: max_grade_percent {

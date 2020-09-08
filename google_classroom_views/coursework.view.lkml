@@ -1,7 +1,7 @@
 view: coursework {
   sql_table_name: `looker-private-demo.classroom_staging.coursework`
     ;;
-  drill_fields: [id]
+   drill_fields: [id, teacher_profiles.name, courses.name, courses.id, title, created_date, work_type, coursework_submissions.count, coursework_materials.count, coursework_submissions.average_grade_percent]
 
   dimension: id {
     primary_key: yes
@@ -117,7 +117,22 @@ view: coursework {
     label: "Number of Courseworks"
     type: count_distinct
     sql: ${id} ;;
-    drill_fields: [id, courses.name, courses.id]
+  }
+
+  measure: number_assignments {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: [
+      work_type: "ASSIGNMENT"
+    ]
+  }
+
+  measure: number_questions {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: [
+      work_type: "-ASSIGNMENT"
+    ]
   }
 
   measure: expected_submissions {
@@ -146,6 +161,7 @@ view: coursework {
     sql: ${missing_submissions}/nullif(${expected_submissions},0) ;;
     value_format_name: percent_2
   }
+
 
 }
 

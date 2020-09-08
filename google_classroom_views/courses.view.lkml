@@ -71,6 +71,17 @@ view: courses {
     sql: ${TABLE}.alternateLink ;;
   }
 
+  dimension: subject {
+    sql: case when  ${name} like '%Math%' then 'Math'
+                when ${name} like '%Technology%' then 'Technology'
+                when ${name} like '%Art%'  then 'Art'
+                when ${name} like '%Science%'  then 'Science'
+                when ${name} like '%History%'  then 'History'
+                when ${name} like '%English%' then 'English'
+                else 'Elementary' end;;
+    drill_fields: [topics.name]
+  }
+
   dimension: calendar_id {
     hidden: yes
     type: string
@@ -182,10 +193,10 @@ view: courses {
     fields: [
       id,
       name,
+      description,
       students.count,
       coursework.count,
       coursework_submissions.count,
-      teachers.count,
       announcements.count
     ]
   }

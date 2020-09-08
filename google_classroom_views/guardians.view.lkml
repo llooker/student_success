@@ -9,12 +9,6 @@ view: guardians {
     sql: ${TABLE}.guardianId ;;
   }
 
-  dimension: invited_email_address {
-    label: "Guardian Email Address"
-    type: string
-    sql: ${TABLE}.invitedEmailAddress ;;
-  }
-
   dimension: student_id {
     hidden: yes
     type: string
