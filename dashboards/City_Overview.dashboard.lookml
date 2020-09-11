@@ -2,8 +2,8 @@
   title: City Overview
   layout: newspaper
   elements:
-  - title: Students by Grade Tier
-    name: Students by Grade Tier
+  - title: Students by GPA Tier
+    name: Students by GPA Tier
     model: student_success
     explore: courses
     type: looker_bar
@@ -100,8 +100,8 @@
     col: 0
     width: 24
     height: 4
-  - title: Average % Points Earned
-    name: Average % Points Earned
+  - title: Average % Points Earned (GPA)
+    name: Average % Points Earned (GPA)
     model: student_success
     explore: courses
     type: single_value
@@ -167,10 +167,12 @@
     model: student_success
     explore: courses
     type: looker_scatter
-    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration]
+    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration,
+      student_metadata.grade]
+    pivots: [student_metadata.grade]
     filters:
       schools.grades: K-4
-    sorts: [student_chrome_facts.average_daily_duration desc]
+    sorts: [student_chrome_facts.average_daily_duration desc, student_metadata.grade]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -201,16 +203,13 @@
         showLabels: false, showValues: true, maxValue: 0.8, minValue: 0.7, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     size_by_field: ''
-    hidden_series: [4th Grade - 4 - student_facts.average_points_earned, 11th Grade
-        - 11 - student_facts.average_points_earned, 12th Grade - 12 - student_facts.average_points_earned,
-      2nd Grade - 2 - student_facts.average_points_earned, 1st Grade - 1 - student_facts.average_points_earned,
-      3rd Grade - 3 - student_facts.average_points_earned, 5th Grade - 4 - student_facts.average_points_earned,
-      7th Grade - 7 - student_facts.average_points_earned, 9th Grade - 9 - student_facts.average_points_earned,
-      Kindergarten - 0 - student_facts.average_points_earned]
+    hidden_series: [11th Grade - 11 - student_facts.average_points_earned, 12th Grade
+        - 12 - student_facts.average_points_earned, 5th Grade - 4 - student_facts.average_points_earned,
+      7th Grade - 7 - student_facts.average_points_earned, 9th Grade - 9 - student_facts.average_points_earned]
     series_types: {}
-    trend_lines: [{color: "#000000", label_position: right, period: 7, regression_type: linear,
-        series_index: 1, show_label: false, label_type: string}]
+    trend_lines: []
     defaults_version: 1
+    hidden_fields: []
     listen: {}
     row: 10
     col: 10
@@ -254,13 +253,13 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: !!null '', orientation: top, series: [{axisId: student_facts.missing_more_than_half,
+    y_axes: [{label: '', orientation: left, series: [{axisId: students.count, id: students.count,
+            name: Number of Students}], showLabels: false, showValues: true, minValue: !!null '',
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
+      {label: !!null '', orientation: right, series: [{axisId: student_facts.missing_more_than_half,
             id: student_facts.missing_more_than_half, name: Missing More Than Half}],
         showLabels: false, showValues: true, minValue: 0, unpinAxis: true, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: '', orientation: bottom, series: [
-          {axisId: students.count, id: students.count, name: Number of Students}],
-        showLabels: false, showValues: true, minValue: !!null '', unpinAxis: true,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+        tickDensityCustom: 5, type: linear}]
     hidden_series: [TXX Undefined - students.count]
     series_types:
       student_facts.missing_more_than_half: line
@@ -300,7 +299,7 @@
     sorts: [chrome_usage.average_daily_duration desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{dimension: usage_goal, label: Usage Goal, expression: '90',
+    dynamic_fields: [{dimension: usage_goal, label: Usage Goal, expression: '120',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
         _type_hint: number}]
     custom_color_enabled: true
@@ -313,7 +312,7 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: Student Average Chromebook Usage
-    comparison_label: 90 min Usage Goal
+    comparison_label: 120 min Daily Usage Goal
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -499,8 +498,8 @@
     col: 18
     width: 6
     height: 4
-  - title: Attendance Rates
-    name: Attendance Rates
+  - title: Attendance Rates vs GPA
+    name: Attendance Rates vs GPA
     model: student_success
     explore: courses
     type: looker_column
@@ -558,6 +557,7 @@
     defaults_version: 1
     show_null_points: true
     interpolation: linear
+    listen: {}
     row: 10
     col: 0
     width: 10
@@ -632,8 +632,8 @@
     col: 0
     width: 12
     height: 7
-  - title: Participation Tier by Average Points Earned
-    name: Participation Tier by Average Points Earned
+  - title: Participation Tier by Average GPA
+    name: Participation Tier by Average GPA
     model: student_success
     explore: courses
     type: looker_column
@@ -686,6 +686,7 @@
     defaults_version: 1
     show_null_points: true
     interpolation: linear
+    listen: {}
     row: 21
     col: 0
     width: 10
@@ -695,10 +696,12 @@
     model: student_success
     explore: courses
     type: looker_scatter
-    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration]
+    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration,
+      student_metadata.grade]
+    pivots: [student_metadata.grade]
     filters:
-      schools.grades: 9-12
-    sorts: [student_chrome_facts.average_daily_duration desc]
+      schools.grades: 5-8
+    sorts: [student_chrome_facts.average_daily_duration desc, student_metadata.grade]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -750,12 +753,10 @@
     hidden_series: [4th Grade - 4 - student_facts.average_points_earned, 11th Grade
         - 11 - student_facts.average_points_earned, 12th Grade - 12 - student_facts.average_points_earned,
       2nd Grade - 2 - student_facts.average_points_earned, 1st Grade - 1 - student_facts.average_points_earned,
-      3rd Grade - 3 - student_facts.average_points_earned, 5th Grade - 4 - student_facts.average_points_earned,
-      7th Grade - 7 - student_facts.average_points_earned, 9th Grade - 9 - student_facts.average_points_earned,
+      3rd Grade - 3 - student_facts.average_points_earned, 9th Grade - 9 - student_facts.average_points_earned,
       Kindergarten - 0 - student_facts.average_points_earned]
     series_types: {}
-    trend_lines: [{color: "#000000", label_position: right, period: 7, regression_type: linear,
-        series_index: 1, show_label: true}]
+    trend_lines: []
     defaults_version: 1
     listen: {}
     row: 17
@@ -767,10 +768,12 @@
     model: student_success
     explore: courses
     type: looker_scatter
-    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration]
+    fields: [student_facts.average_points_earned, student_chrome_facts.average_daily_duration,
+      student_metadata.grade]
+    pivots: [student_metadata.grade]
     filters:
       schools.grades: 9-12
-    sorts: [student_chrome_facts.average_daily_duration desc]
+    sorts: [student_chrome_facts.average_daily_duration desc, student_metadata.grade]
     limit: 5000
     column_limit: 50
     x_axis_gridlines: false
@@ -819,16 +822,13 @@
         showLabels: false, showValues: true, maxValue: 0.8, minValue: 0.7, unpinAxis: false,
         tickDensity: default, tickDensityCustom: 5, type: linear}]
     size_by_field: ''
-    hidden_series: [4th Grade - 4 - student_facts.average_points_earned, 11th Grade
-        - 11 - student_facts.average_points_earned, 12th Grade - 12 - student_facts.average_points_earned,
-      2nd Grade - 2 - student_facts.average_points_earned, 1st Grade - 1 - student_facts.average_points_earned,
+    hidden_series: [4th Grade - 4 - student_facts.average_points_earned, 2nd Grade
+        - 2 - student_facts.average_points_earned, 1st Grade - 1 - student_facts.average_points_earned,
       3rd Grade - 3 - student_facts.average_points_earned, 5th Grade - 4 - student_facts.average_points_earned,
-      7th Grade - 7 - student_facts.average_points_earned, 9th Grade - 9 - student_facts.average_points_earned,
-      Kindergarten - 0 - student_facts.average_points_earned]
+      7th Grade - 7 - student_facts.average_points_earned, Kindergarten - 0 - student_facts.average_points_earned]
     series_types: {}
     reference_lines: []
-    trend_lines: [{color: "#000000", label_position: right, period: 7, regression_type: linear,
-        series_index: 1, show_label: true}]
+    trend_lines: []
     defaults_version: 1
     listen: {}
     row: 24
