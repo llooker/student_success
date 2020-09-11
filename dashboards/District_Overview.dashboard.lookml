@@ -272,13 +272,13 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: !!null '', orientation: top, series: [{axisId: student_facts.missing_more_than_half,
+    y_axes: [{label: '', orientation: left, series: [{axisId: students.count, id: students.count,
+            name: Number of Students}], showLabels: false, showValues: true, minValue: !!null '',
+        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
+      {label: !!null '', orientation: right, series: [{axisId: student_facts.missing_more_than_half,
             id: student_facts.missing_more_than_half, name: Missing More Than Half}],
         showLabels: false, showValues: true, minValue: 0, unpinAxis: true, tickDensity: default,
-        tickDensityCustom: 5, type: linear}, {label: '', orientation: bottom, series: [
-          {axisId: students.count, id: students.count, name: Number of Students}],
-        showLabels: false, showValues: true, minValue: !!null '', unpinAxis: true,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+        tickDensityCustom: 5, type: linear}]
     hidden_series: [TXX Undefined - students.count]
     series_types:
       student_facts.missing_more_than_half: line
@@ -625,7 +625,7 @@
     sorts: [chrome_usage.average_daily_duration desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{dimension: usage_goal, label: Usage Goal, expression: '60',
+    dynamic_fields: [{dimension: usage_goal, label: Usage Goal, expression: '120',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: dimension,
         _type_hint: number}]
     custom_color_enabled: true
@@ -638,7 +638,7 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: Student Average Chromebook Usage
-    comparison_label: 90 min Usage Goal
+    comparison_label: 120 min Usage Goal
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -686,7 +686,6 @@
     fields: [students.user_id, coursework_submissions.percent_points_earned, student_chrome_facts.average_daily_duration]
     filters:
       student_chrome_facts.total_duration: NOT NULL
-      coursework_submissions.percent_points_earned: ">=.5"
     sorts: [coursework_submissions.percent_points_earned desc]
     limit: 500
     column_limit: 50
