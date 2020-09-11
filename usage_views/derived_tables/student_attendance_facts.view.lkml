@@ -26,12 +26,6 @@ view: student_attendance_facts {
       description: "The percent of the meets that the student attended"
       value_format: "#,##0.0%"
       type: number
-      sql: case when ${student_facts.percent_points_earned} <.6 then 0
-                 when ${student_facts.percent_points_earned} <.7 then .25
-                 when ${student_facts.percent_points_earned} <.8 then .50
-                when ${student_facts.percent_points_earned} <.9 then .75
-                else 1 end
-              ;;
     }
 
     dimension: student_id {
