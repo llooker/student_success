@@ -5,6 +5,7 @@ include: "/google_classroom_views/derived_tables/*.view.lkml"
 include: "/usage_views/*.view.lkml"
 include: "/usage_views/derived_tables/*.view.lkml"
 include: "/metadata_views/*.view.lkml"
+include: "/dashboards/*"
 
 
 datagroup: classroom_trigger {
