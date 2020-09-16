@@ -153,6 +153,7 @@ view: coursework {
     filters: [
       coursework_submissions.id: "NULL"
     ]
+    drill_fields: [student_profiles.name, created_date, courses.name, title, work_type]
   }
 
   measure: percent_missing {
@@ -160,6 +161,7 @@ view: coursework {
     description: "Percent of the class that has not submitted this assignment"
     sql: ${missing_submissions}/nullif(${expected_submissions},0) ;;
     value_format_name: percent_2
+    drill_fields: [student_profiles.name, created_date, courses.name, title, work_type]
   }
 
 

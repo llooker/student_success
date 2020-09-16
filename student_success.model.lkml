@@ -12,6 +12,7 @@ datagroup: classroom_trigger {
   sql_trigger: SELECT COUNT(*) from ${coursework.SQL_TABLE_NAME} ;;
 }
 
+
 explore: courses {
   label: "Google Classrooms"
   description: "Explore Google Classroom and associated usage data to understand how students and teachers are performing"
@@ -167,6 +168,10 @@ explore: meet_activities {
     relationship: many_to_one
     sql_on: ${schools.school_name}=${student_metadata.school} ;;
   }
+  join: student_attendance_facts {
+    view_label: "Students"
+    sql_on: ${student_attendance_facts.student_id}=${students.user_id} ;;
+  }
 }
 
 explore: meet_attendance {
@@ -178,14 +183,15 @@ explore: meet_attendance {
   }
 }
 
-explore: chrome_usage {
+explore: chrome_usage_with_date {
+  label: "Chrome Usage"
   join: student_profiles {
     type: full_outer
     relationship: many_to_one
     from: user_profiles
     view_label: "Students"
     fields: [student_profiles.name,student_profiles.email_address,student_profiles.photo_url]
-    sql_on: ${chrome_usage.user} = ${student_profiles.email_address} ;;
+    sql_on: ${chrome_usage_with_date.user} = ${student_profiles.email_address} ;;
   }
   join: students {
     relationship: one_to_one
@@ -195,13 +201,17 @@ explore: chrome_usage {
     relationship: one_to_one
     sql_on: ${student_metadata.user_id}=${students.user_id} ;;
   }
+  join: student_attendance_facts {
+    view_label: "Students"
+    sql_on: ${student_attendance_facts.student_id}=${students.user_id} ;;
+  }
   join: teacher_profiles {
     type: full_outer
     relationship: many_to_one
     from: user_profiles
     view_label: "Teachers"
     fields: [teacher_profiles.name,teacher_profiles.email_address,teacher_profiles.photo_url]
-    sql_on: ${chrome_usage.user} = ${teacher_profiles.email_address} ;;
+    sql_on: ${chrome_usage_with_date.user} = ${teacher_profiles.email_address} ;;
   }
   join: teachers {
     relationship: one_to_one
@@ -209,6 +219,6 @@ explore: chrome_usage {
   }
   join: schools {
     relationship: many_to_one
-    sql_on: ${chrome_usage.school_name} =${schools.school_name};;
+    sql_on: ${chrome_usage_with_date.school_name} =${schools.school_name};;
   }
 }
