@@ -130,7 +130,7 @@ view: student_facts {
     description: "Health score to flag at risk students, combination of grade, attendance rate and time on chromebook"
     sql: (coalesce(${average_grade_percent},0)+
           coalesce(${student_attendance_facts.percent_attended},0)+(
-        coalesce( ${student_chrome_facts.average_daily_duration},0)/60))/3 ;;
+        coalesce( ${student_chrome_facts.average_daily_duration},0)/120))/3 ;;
   }
 
   measure: average_points_earned {
@@ -142,7 +142,7 @@ view: student_facts {
   measure: missing_more_than_half {
     type: count
     filters: [
-      percent_missing: ">=.3"
+      percent_missing: ">=.5"
     ]
   }
 
@@ -165,7 +165,7 @@ view: student_facts {
     description: "Students with a health score below .4"
     type: count
     filters: [
-      student_health_score: "<.305"
+      student_health_score: "<.3"
     ]
   }
 

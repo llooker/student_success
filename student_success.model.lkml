@@ -183,7 +183,7 @@ explore: meet_attendance {
   }
 }
 
-explore: chrome_usage_with_date {
+explore: chrome_usage {
   label: "Chrome Usage"
   join: student_profiles {
     type: full_outer
@@ -191,7 +191,7 @@ explore: chrome_usage_with_date {
     from: user_profiles
     view_label: "Students"
     fields: [student_profiles.name,student_profiles.email_address,student_profiles.photo_url]
-    sql_on: ${chrome_usage_with_date.user} = ${student_profiles.email_address} ;;
+    sql_on: ${chrome_usage.user} = ${student_profiles.email_address} ;;
   }
   join: students {
     relationship: one_to_one
@@ -211,7 +211,7 @@ explore: chrome_usage_with_date {
     from: user_profiles
     view_label: "Teachers"
     fields: [teacher_profiles.name,teacher_profiles.email_address,teacher_profiles.photo_url]
-    sql_on: ${chrome_usage_with_date.user} = ${teacher_profiles.email_address} ;;
+    sql_on: ${chrome_usage.user} = ${teacher_profiles.email_address} ;;
   }
   join: teachers {
     relationship: one_to_one
@@ -219,6 +219,6 @@ explore: chrome_usage_with_date {
   }
   join: schools {
     relationship: many_to_one
-    sql_on: ${chrome_usage_with_date.school_name} =${schools.school_name};;
+    sql_on: ${chrome_usage.school_name} =${schools.school_name};;
   }
 }
