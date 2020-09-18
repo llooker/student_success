@@ -3,7 +3,7 @@ view: chrome_usage {
   datagroup_trigger: classroom_trigger
    sql:
       SELECT
-        u.emailaddress as email_address
+        u.emailaddress as user
         , date
         , device_id
         , serial_number
