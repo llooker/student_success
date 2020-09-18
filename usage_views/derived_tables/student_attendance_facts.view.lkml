@@ -47,14 +47,13 @@ view: student_attendance_facts {
 
     measure: total_expected_meets {
       type: sum
-      hidden: yes
-      value_format_name: percent_1
+      #hidden: yes
       sql: ${meets_expected} ;;
     }
 
     measure: total_attended {
       type: sum
-      hidden: yes
+      #hidden: yes
       sql: ${meets_attended} ;;
     }
 
