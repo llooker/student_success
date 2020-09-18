@@ -1,12 +1,12 @@
 view: teacher_chrome_facts {
   derived_table: {
     datagroup_trigger: classroom_trigger
-    explore_source: chrome_usage_with_date {
+    explore_source: chrome_usage {
       column: average_daily_duration {}
       column: total_duration {}
       column: user_id { field: teachers.user_id }
       filters: {
-        field: chrome_usage_with_date.usage_day_of_week
+        field: chrome_usage.usage_day_of_week
         value: "-Sunday,-Saturday"
       }
       filters: {
