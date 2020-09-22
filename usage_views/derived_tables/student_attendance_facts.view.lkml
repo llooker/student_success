@@ -61,7 +61,9 @@ view: student_attendance_facts {
     measure: total_attendance_rate {
       type: number
       value_format_name: percent_1
-      sql: ${total_attended}/nullif(${total_expected_meets},0) ;;
+      sql: CASE WHEN ${total_attended}/nullif(${total_expected_meets},0) > 1
+      THEN 1
+      ELSE ${total_attended}/nullif(${total_expected_meets},0) END;;
     }
 
 
