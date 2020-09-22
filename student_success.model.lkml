@@ -12,6 +12,7 @@ datagroup: classroom_trigger {
   sql_trigger: SELECT COUNT(*) from ${coursework.SQL_TABLE_NAME} ;;
 }
 
+
 explore: courses {
   label: "Google Classrooms"
   description: "Explore Google Classroom and associated usage data to understand how students and teachers are performing"
@@ -172,6 +173,10 @@ explore: meet_activities {
     relationship: many_to_one
     sql_on: ${schools.school_name}=${student_metadata.school} ;;
   }
+  join: student_attendance_facts {
+    view_label: "Students"
+    sql_on: ${student_attendance_facts.student_id}=${students.user_id} ;;
+  }
 }
 
 explore: meet_attendance {
@@ -184,6 +189,7 @@ explore: meet_attendance {
 }
 
 explore: chrome_usage {
+  label: "Chrome Usage"
   join: student_profiles {
     type: full_outer
     relationship: many_to_one
@@ -204,6 +210,10 @@ explore: chrome_usage {
   join: student_metadata {
     relationship: one_to_one
     sql_on: ${student_metadata.user_id}=${students.user_id} ;;
+  }
+  join: student_attendance_facts {
+    view_label: "Students"
+    sql_on: ${student_attendance_facts.student_id}=${students.user_id} ;;
   }
   join: teacher_profiles {
     type: full_outer

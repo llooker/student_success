@@ -52,7 +52,7 @@ view: schools {
     sql: ${TABLE}.school_district ;;
     link: {
       label: "{{ value }} Overview Dashboard"
-      url: "/dashboards/716?District={{ value }}"
+      url: "/dashboards/AHiQBdtIKcClOiAZhxnOJW?District={{ value }}"
       icon_url: "https://looker.com/assets/img/images/logos/looker_grey.svg"
     }
     action: {
@@ -97,7 +97,7 @@ view: schools {
     sql: ${TABLE}.school_name ;;
     link: {
       label: "{{ value }} Overview Dashboard"
-      url: "/dashboards/724?School={{ value }}"
+      url: "/dashboards/ZjRBDVKdRNXXwE3mwY35MY?School={{ value }}"
       icon_url: "https://looker.com/assets/img/images/logos/looker_grey.svg"
     }
     action: {
