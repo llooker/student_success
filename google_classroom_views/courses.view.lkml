@@ -184,7 +184,8 @@ view: courses {
 
   measure: count {
     label: "Number of Courses"
-    type: count
+    type: count_distinct
+    sql: ${id} ;;
     drill_fields: [detail*]
   }
 

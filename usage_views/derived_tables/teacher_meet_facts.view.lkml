@@ -1,7 +1,8 @@
 view: teacher_meet_facts {
   derived_table: {
+    datagroup_trigger: classroom_trigger
     explore_source: meet_activities {
-      column: user_id { field: teachers.user_id }
+      column: user_id { field: teacher_profiles.id }
       column: average_percent_meet_on { field: meet_events.average_percent_meet_on }
       column: average_duration { field: meet_events.average_duration }
       column: total_duration { field: meet_events.total_duration }

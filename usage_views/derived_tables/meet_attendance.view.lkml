@@ -1,6 +1,6 @@
 view: meet_attendance {
   derived_table: {
-    datagroup_trigger: classroom_trigger
+    # datagroup_trigger: classroom_trigger
     explore_source: courses {
       column: student_id { field: students.user_id }
       column: id {}

@@ -2,7 +2,7 @@ view: student_meet_facts {
   derived_table: {
     datagroup_trigger: classroom_trigger
     explore_source: meet_activities {
-      column: user_id { field: students.user_id }
+      column: user_id { field: student_profiles.id }
       column: percent_meets_with_audio { field: meet_events.percent_meets_with_audio }
       column: percent_meets_with_video { field: meet_events.percent_meets_with_video }
       column: number_meet_attendance { field: meet_events.number_meet_attendance }
@@ -12,7 +12,8 @@ view: student_meet_facts {
     }
 
   dimension: user_id {
-    label: "Students Student ID"
+    hidden: yes
+    label: "Student ID"
   }
 
   dimension: percent_meets_with_audio {

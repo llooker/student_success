@@ -128,36 +128,28 @@ explore: meet_activities {
     sql_on: ${meet_activities.unique_idenitifier}= ${meet_events.id} ;;
   }
   join: student_profiles {
+    sql_where: student_profiles.id in (select distinct student.userId from `looker-private-demo.classroom_staging.students` as student);;
     relationship: many_to_one
     type: full_outer
     from: user_profiles
     view_label: "Students"
-    fields: [student_profiles.name,student_profiles.email_address,student_profiles.photo_url]
+    fields: [student_profiles.id, student_profiles.name,student_profiles.email_address,student_profiles.photo_url]
 #     sql_on: ${meet_activities.email} = ${student_profiles.email_address} ;;
     sql_on: ${meet_activities.user_id} = ${student_profiles.id} ;;
   }
-  join: students {
-    sql_where: ${students.user_id} is not null ;;
-    relationship: one_to_one
-    sql_on: ${students.user_id} = ${student_profiles.id} ;;
-  }
   join: student_metadata {
     relationship: one_to_one
-    sql_on: ${student_metadata.user_id}=${students.user_id} ;;
+    sql_on: ${student_metadata.user_id}=${student_profiles.id} ;;
   }
   join: teacher_profiles {
+    sql_where: teacher_profiles.id in (select distinct teacher.userId from `looker-private-demo.classroom_staging.teachers` as teacher) ;;
     type: full_outer
     relationship: many_to_one
     from: user_profiles
     view_label: "Teachers"
-    fields: [teacher_profiles.name,teacher_profiles.email_address,teacher_profiles.photo_url]
+    fields: [teacher_profiles.id, teacher_profiles.name,teacher_profiles.email_address,teacher_profiles.photo_url]
 #     sql_on: ${meet_activities.email} = ${teacher_profiles.email_address} ;;
     sql_on: ${meet_activities.user_id} = ${teacher_profiles.id} ;;
-  }
-  join: teachers {
-    sql_where: ${teachers.user_id} is not null ;;
-    relationship: one_to_one
-    sql_on: ${teachers.user_id} = ${teacher_profiles.id} ;;
   }
   join: meeting_facts {
     view_label: "Meet Usage"
@@ -170,14 +162,14 @@ explore: meet_activities {
   }
   join: student_attendance_facts {
     view_label: "Students"
-    sql_on: ${student_attendance_facts.student_id}=${students.user_id} ;;
+    sql_on: ${student_attendance_facts.student_id}=${student_profiles.id} ;;
   }
 }
 
 explore: meet_attendance {
   join: teacher_student_meet_facts {
     relationship: one_to_one
-    type: full_outer
+    type: inner
     sql_on: ${meet_attendance.student_id} = ${teacher_student_meet_facts.student_id}
     and ${meet_attendance.teacher_id} = ${teacher_student_meet_facts.teacher_id};;
   }
