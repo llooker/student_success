@@ -70,6 +70,8 @@ view: teacher_student_meet_facts {
     description: "The percent of the meets that the student attended"
     type: number
     value_format_name: percent_1
-    sql:  ${total_attended}/nullif(${meet_attendance.total_number_meets_expected},0) ;;
+    sql: CASE WHEN ${total_attended}/nullif(${meet_attendance.total_number_meets_expected},0) > 1
+    THEN 1
+    ELSE ${total_attended}/nullif(${meet_attendance.total_number_meets_expected},0) END ;;
   }
 }
