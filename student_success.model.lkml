@@ -141,6 +141,7 @@ explore: meet_activities {
     relationship: one_to_one
     sql_on: ${students.user_id} = ${student_profiles.id} ;;
   }
+
   join: student_metadata {
     relationship: one_to_one
     sql_on: ${student_metadata.user_id}=${students.user_id} ;;
@@ -197,6 +198,7 @@ explore: chrome_usage {
     relationship: one_to_one
      sql_on: ${students.user_id} = ${student_profiles.id} ;;
   }
+
   join: student_metadata {
     relationship: one_to_one
     sql_on: ${student_metadata.user_id}=${students.user_id} ;;
