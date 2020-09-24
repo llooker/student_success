@@ -656,7 +656,7 @@
   - name: School
     title: School
     type: field_filter
-    default_value: Brown Middle School
+    default_value: Hanna High School
     allow_multiple_values: true
     required: false
     model: student_success
