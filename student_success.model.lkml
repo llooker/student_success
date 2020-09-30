@@ -12,7 +12,6 @@ datagroup: classroom_trigger {
   sql_trigger: SELECT COUNT(*) from ${coursework.SQL_TABLE_NAME} ;;
 }
 
-
 explore: courses {
   label: "Google Classrooms"
   description: "Explore Google Classroom and associated usage data to understand how students and teachers are performing"
