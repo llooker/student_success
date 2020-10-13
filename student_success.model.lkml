@@ -12,6 +12,11 @@ datagroup: classroom_trigger {
   sql_trigger: SELECT COUNT(*) from ${coursework.SQL_TABLE_NAME} ;;
 }
 
+datagroup: once_weekly {
+  max_cache_age: "168 hours"
+  sql_trigger: SELECT extract(week from current_date()) ;;
+}
+
 explore: courses {
   label: "Google Classrooms"
   description: "Explore Google Classroom and associated usage data to understand how students and teachers are performing"
@@ -39,7 +44,7 @@ explore: courses {
   }
   join: teachers {
     type: left_outer
-    relationship: many_to_one
+    relationship: one_to_one
     sql_on: ${teachers.user_id}=${courses.owner_id} ;;
   }
   join: teacher_profiles {
@@ -221,5 +226,45 @@ explore: chrome_usage {
   join: schools {
     relationship: many_to_one
     sql_on: ${chrome_usage.school_name} =${schools.school_name};;
+  }
+
+}
+
+explore: data_science_inputs {}
+
+explore: predicted_performance {}
+
+explore: predicted_performance_evaluation {}
+
+explore: predicted_performance_training {}
+
+explore: predicted_performance_applied {
+  join: teacher_profiles {
+    type: left_outer
+    relationship: many_to_one
+    from: user_profiles
+    view_label: "Teachers"
+    fields: [teacher_profiles.name,teacher_profiles.email_address,teacher_profiles.photo_url]
+#     sql_on: ${meet_activities.email} = ${teacher_profiles.email_address} ;;
+    sql_on: ${predicted_performance_applied.teacher_id} = ${teacher_profiles.id} ;;
+  }
+  join: student_profiles {
+    relationship: many_to_one
+    type: left_outer
+    from: user_profiles
+    view_label: "Students"
+    fields: [student_profiles.name,student_profiles.email_address,student_profiles.photo_url]
+#     sql_on: ${meet_activities.email} = ${student_profiles.email_address} ;;
+    sql_on: ${predicted_performance_applied.user_id} = ${student_profiles.id} ;;
+  }
+  join: student_metadata {
+    fields: []
+    relationship: one_to_one
+    sql_on: ${student_metadata.user_id}=${student_profiles.id} ;;
+  }
+  join: schools {
+    fields: [schools.school_district, schools.school_name]
+    relationship: many_to_one
+    sql_on: ${schools.school_name}=${student_metadata.school} ;;
   }
 }
