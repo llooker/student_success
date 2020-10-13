@@ -5,6 +5,7 @@
 
 view: data_science_inputs {
   derived_table: {
+    datagroup_trigger: once_weekly
     explore_source: courses {
       column: name {}
       column: section {}
@@ -263,17 +264,17 @@ FROM
     sql: ${sum_of_predicted_at_risk}/nullif(${total_students},0) ;;
     link: {
       label: "District Breakdown"
-      url: "/explore/edu_bqml_demo/predicted_performance_applied?fields=schools.school_district,predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%7D&origin=share-expanded"
+      url: "/explore/student_success/predicted_performance_applied?fields=schools.school_district,predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%7D&origin=share-expanded"
       icon_url: "https://looker.com/assets/img/images/logos/looker_grey.svg"
     }
     link: {
       label: "School Breakdown"
-      url: "/explore/edu_bqml_demo/predicted_performance_applied?fields=schools.school_district,schools.school_name,predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk&f[schools.school_district]={{ _filters['schools.school_district'] | url_encode }}&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%22schools.school_district%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A0%7D%5D%7D&origin=share-expanded"
+      url: "/explore/student_success/predicted_performance_applied?fields=schools.school_district,schools.school_name,predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk&f[schools.school_district]={{ _filters['schools.school_district'] | url_encode }}&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%22schools.school_district%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A0%7D%5D%7D&origin=share-expanded"
       icon_url: "https://looker.com/assets/img/images/logos/looker_grey.svg"
     }
     link: {
       label: "Teacher Breakdown"
-      url: "/explore/edu_bqml_demo/predicted_performance_applied?fields=predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk,teacher_profiles.name&f[schools.school_district]={{ _filters['schools.school_district'] | url_encode }}&f[schools.school_name]={{ _filters['schools.school_name'] | url_encode }}&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%22schools.school_district%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A0%7D%5D%2C%22schools.school_name%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A2%7D%5D%7D&origin=share-expanded"
+      url: "/explore/student_success/predicted_performance_applied?fields=predicted_performance_applied.percent_of_students_at_risk,predicted_performance_applied.sum_of_predicted_at_risk,teacher_profiles.name&f[schools.school_district]={{ _filters['schools.school_district'] | url_encode }}&f[schools.school_name]={{ _filters['schools.school_name'] | url_encode }}&sorts=predicted_performance_applied.percent_of_students_at_risk+desc&limit=500&query_timezone=America%2FLos_Angeles&vis=%7B%7D&filter_config=%7B%22schools.school_district%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A0%7D%5D%2C%22schools.school_name%22%3A%5B%7B%22type%22%3A%22%3D%22%2C%22values%22%3A%5B%7B%22constant%22%3A%22%22%7D%2C%7B%7D%5D%2C%22id%22%3A2%7D%5D%7D&origin=share-expanded"
       icon_url: "https://looker.com/assets/img/images/logos/looker_grey.svg"
     }
     link: {
