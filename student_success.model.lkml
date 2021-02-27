@@ -6,7 +6,7 @@ include: "/usage_views/*.view.lkml"
 include: "/usage_views/derived_tables/*.view.lkml"
 include: "/metadata_views/*.view.lkml"
 include: "/dashboards/*"
-
+include: "city_overview.dashboard"
 
 datagroup: classroom_trigger {
   sql_trigger: SELECT COUNT(*) from ${coursework.SQL_TABLE_NAME} ;;
